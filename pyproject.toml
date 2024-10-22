@@ -9,7 +9,7 @@ readme = "README.md"
 python = "^3.10"
 
 [tool.poetry.scripts]
-gendiff = "gendiff:main"
+gendiff = "scripts/gendiff:main"
 
 [tool.poetry.group.dev.dependencies]
 flake8 = "^7.1.1"
