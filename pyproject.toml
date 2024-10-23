@@ -4,12 +4,15 @@ version = "0.1.0"
 description = "Вычислитель отличий"
 authors = ["VictorVangeli <whgaleon1@yandex.ru>"]
 readme = "README.md"
+packages = [
+  { include = "gendiff" },
+]
 
 [tool.poetry.dependencies]
 python = "^3.10"
 
 [tool.poetry.scripts]
-gendiff = "scripts/gendiff:main"
+gendiff = "gendiff.scripts.gendiff:main"
 
 [tool.poetry.group.dev.dependencies]
 flake8 = "^7.1.1"
