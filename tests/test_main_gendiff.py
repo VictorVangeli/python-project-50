@@ -18,8 +18,8 @@ def test_main_gendiff_help():
 
 
 def test_main_gendiff_two_different_files():
-    file_path_1 = get_fixture_path('plain_file_1.json')
-    file_path_2 = get_fixture_path('plain_file_2.json')
+    file_path_1 = get_fixture_path("plain_file_1.json")
+    file_path_2 = get_fixture_path("plain_file_2.json")
     expected_result = read_file(
         get_fixture_path("expected_diff_main_plain.txt")
     )

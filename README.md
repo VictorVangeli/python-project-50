@@ -21,4 +21,8 @@
 
 ### ASCIINEMA:
 
+- Первый прототип
 [![asciicast](https://asciinema.org/a/qmMEfUKX5ZLN4LLC0tucXBptp.svg)](https://asciinema.org/a/qmMEfUKX5ZLN4LLC0tucXBptp)
+
+- Автоматическое тестирование
+[![asciicast](https://asciinema.org/a/HBv6uJAelKtxIdZAu5EjFspbO.svg)](https://asciinema.org/a/HBv6uJAelKtxIdZAu5EjFspbO)
