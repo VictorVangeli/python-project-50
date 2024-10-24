@@ -9,7 +9,7 @@ from gendiff.utils import get_fixture_path, read_file
         # Проверка различий между двумя JSON файлами (основная задача)
         [
             "plain_file_1.json",
-            "plain_file.json",
+            "plain_file_2.json",
             "expected_diff_main_plain.txt",
         ],
         # Проверка для первого набора одинаковых файлов
@@ -35,12 +35,12 @@ from gendiff.utils import get_fixture_path, read_file
 def test_generate_diff_plain(file1, file2, expected):
     file_path_1 = get_fixture_path(file1)
     file_path_2 = get_fixture_path(file2)
-    expected_result = read_file(expected)
-    assert generate_diff(file_path_1, file_path_2) == expected_result
-
+    expected_result = read_file(get_fixture_path(expected))
+    assert generate_diff(file_path_1,
+                         file_path_2).strip() == expected_result.strip()
 
 @pytest.mark.parametrize(
-    "excepted_exception, args",
+    "expected_exception, args",
     [
         (TypeError, get_fixture_path("plain_file_1.json")),
         (
@@ -52,6 +52,6 @@ def test_generate_diff_plain(file1, file2, expected):
         ),
     ],
 )
-def test_generate_diff_error(excepted_exception, args):
-    with pytest.raises(excepted_exception):
+def test_generate_diff_error(expected_exception, args):
+    with pytest.raises(expected_exception):
         generate_diff(*args)

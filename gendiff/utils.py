@@ -15,5 +15,5 @@ def read_file(file_path):
 
 
 def get_fixture_path(file_name):
-    current_dir = Path(__file__).parent
-    return current_dir / "fixtures" / file_name
+    current_dir = Path(__file__).parent.parent
+    return current_dir / "tests" / "fixtures" / file_name
