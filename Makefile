@@ -4,7 +4,7 @@ install:
 selfcheck:
 	poetry check
 
-check: selfcheck lint test test_coverage
+check: selfcheck lint test test-coverage
 
 build: check
 	poetry build
@@ -14,7 +14,6 @@ test:
 
 test-coverage:
 	poetry run pytest --cov=gendiff
-
 publish:
 	poetry publish --dry-run
 
