@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        # we want to test our package on several versions of Python
+        # we want to tests our package on several versions of Python
         python-version: [3.8, 3.9]
     steps:
       - uses: actions/checkout@v4
@@ -29,7 +29,7 @@ jobs:
         uses: paambaati/codeclimate-action@v5.0.0
         if: github.ref_name == 'main'
         env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+          CC_TEST_REPORTER_ID: ${6bdbf95f728d941abccaa806038ed39eda29ac393536a6db8f00e71c8ef36632}}
         with:
-          coverageCommand: make test-coverage
+          coverageCommand: make tests-coverage
           debug: true

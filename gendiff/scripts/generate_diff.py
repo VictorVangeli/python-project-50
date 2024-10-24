@@ -2,14 +2,15 @@ import json
 from pathlib import Path
 
 
-def generate_diff(first_file, second_file):
+def load_json(file_path):
     current_dir = Path(__file__).parent
+    with open(current_dir / file_path, "r") as file:
+        return json.load(file)
 
-    with open(current_dir / first_file, "r") as f1, open(
-        current_dir / second_file, "r"
-    ) as f2:
-        text_first_file = json.load(f1)
-        text_second_file = json.load(f2)
+
+def generate_diff(first_file, second_file):
+    text_first_file = load_json(first_file)
+    text_second_file = load_json(second_file)
 
     to_diff = []
 
