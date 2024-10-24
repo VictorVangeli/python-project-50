@@ -1,8 +1,7 @@
 import os
-
-import pytest
 from pathlib import Path
 
+import pytest
 from gendiff.scripts.generate_diff import generate_diff
 
 
@@ -61,9 +60,7 @@ def test_generate_diff_empty():
 @pytest.mark.parametrize(
     "excepted_exception, args",
     [
-        (
-                TypeError,
-                get_fixture_path("plain_file_1.json")),
+        (TypeError, get_fixture_path("plain_file_1.json")),
         (
             FileNotFoundError,
             [
@@ -76,4 +73,3 @@ def test_generate_diff_empty():
 def test_generate_diff_error(excepted_exception, args):
     with pytest.raises(excepted_exception):
         generate_diff(*args)
-
