@@ -36,8 +36,11 @@ def test_generate_diff_plain(file1, file2, expected):
     file_path_1 = get_fixture_path(file1)
     file_path_2 = get_fixture_path(file2)
     expected_result = read_file(get_fixture_path(expected))
-    assert generate_diff(file_path_1,
-                         file_path_2).strip() == expected_result.strip()
+    assert (
+        generate_diff(file_path_1, file_path_2).strip()
+        == expected_result.strip()
+    )
+
 
 @pytest.mark.parametrize(
     "expected_exception, args",
