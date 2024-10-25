@@ -44,14 +44,17 @@ def process_key(diff_tuple):
 
     if key not in text_second_file:
         return removed_diff(key, old_value)
-    elif key not in text_first_file:
+
+    if key not in text_first_file:
         return added_diff(key, new_value)
-    elif isinstance(old_value, dict) and isinstance(new_value, dict):
+
+    if isinstance(old_value, dict) and isinstance(new_value, dict):
         return nested_diff(key, old_value, new_value)
-    elif old_value != new_value:
+
+    if old_value != new_value:
         return changed_diff(key, old_value, new_value)
-    else:
-        return unchanged_diff(key, old_value)
+
+    return unchanged_diff(key, old_value)
 
 
 def process_diff(all_keys, text_first_file, text_second_file):
