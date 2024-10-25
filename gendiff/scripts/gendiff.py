@@ -16,7 +16,10 @@ def main():
         "-f",
         "--format",
         default="stylish",
-        help="set format of output (default: stylish, variables: plain)",
+        help=(
+            "set format of output (default: stylish, "
+            "variables: plain, simple)"
+        ),
     )
     args = parser.parse_args()
     result = generate_diff(args.first_file, args.second_file, args.format)

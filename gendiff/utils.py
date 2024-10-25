@@ -2,15 +2,19 @@ import json
 from pathlib import Path
 
 import yaml
-from gendiff.formated.formatter_plain import format_diff_plain
+from gendiff.formated.formatted_plain import format_diff_plain
+from gendiff.formated.formatter_simple import format_diff_simple
 from gendiff.formated.formatter_stylish import format_diff_stylish
 
 
 def get_formatter(format_name):
-    if format_name == "plain":
-        return format_diff_plain
-    elif format_name == "stylish":
-        return format_diff_stylish
+    match format_name:
+        case "simple":
+            return format_diff_simple
+        case "stylish":
+            return format_diff_stylish
+        case "plain":
+            return format_diff_plain
 
 
 def load_file_to_parse(file_path):
@@ -35,7 +39,7 @@ def get_fixture_path(file_name, format_name: str):
     file_name = file_name.lower()
 
     match format_name:
-        case "plain" | "stylish":
+        case "plain" | "stylish" | "simple":
             match file_name:
                 case name if name.endswith(".json"):
                     # fmt: off

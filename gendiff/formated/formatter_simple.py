@@ -1,4 +1,4 @@
-def format_diff_plain(diff):
+def format_diff_simple(diff):
     to_diff = []
 
     for info in diff:

@@ -21,16 +21,16 @@ def test_main_gendiff_help():
     "file1, file2, format_name, expected_output",
     [
         (
-            "plain_file_1.json",
-            "plain_file_2.json",
-            "plain",
-            "expected_diff_main_plain.txt",
+            "simple_file_1.json",
+            "simple_file_2.json",
+            "simple",
+            "expected_diff_main_simple.txt",
         ),
         (
-            "plain_file_1.yaml",
-            "plain_file_2.yaml",
-            "plain",
-            "expected_diff_main_plain.txt",
+            "simple_file_1.yaml",
+            "simple_file_2.yaml",
+            "simple",
+            "expected_diff_main_simple.txt",
         ),
         (
             "stylish_file_1.json",

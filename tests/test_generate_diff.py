@@ -8,41 +8,41 @@ from gendiff.utils import get_fixture_path, read_file
     [
         # Проверка различий между двумя JSON файлами (основная задача)
         [
-            "plain_file_1.json",
-            "plain_file_2.json",
-            "expected_diff_main_plain.txt",
+            "simple_file_1.json",
+            "simple_file_2.json",
+            "expected_diff_main_simple.txt",
         ],
         # Проверка для первого набора одинаковых файлов
         [
-            "plain_file_1.json",
-            "plain_file_1.json",
-            "expected_diff_identical1_plain.txt",
+            "simple_file_1.json",
+            "simple_file_1.json",
+            "expected_diff_identical1_simple.txt",
         ],
         # Проверка для второго набора одинаковых файлов
         [
-            "plain_file_2.json",
-            "plain_file_2.json",
-            "expected_diff_identical2_plain.txt",
+            "simple_file_2.json",
+            "simple_file_2.json",
+            "expected_diff_identical2_simple.txt",
         ],
         # Проверка различий между пустым файлом и полным
         [
             "file_empty.json",
-            "plain_file_1.json",
-            "expected_diff_empty_plain.txt",
+            "simple_file_1.json",
+            "expected_diff_empty_simple.txt",
         ],
         # Проверка различий между двумя YAML файлами (основная задача)
         [
-            "plain_file_1.yaml",
-            "plain_file_2.yaml",
-            "expected_diff_main_plain.txt",
+            "simple_file_1.yaml",
+            "simple_file_2.yaml",
+            "expected_diff_main_simple.txt",
         ],
     ],
 )
-def test_generate_diff_plain(file1, file2, expected):
-    file_path_1 = get_fixture_path(file1, "plain")
-    file_path_2 = get_fixture_path(file2, "plain")
-    expected_result = read_file(get_fixture_path(expected, "plain"))
-    result = generate_diff(file_path_1, file_path_2, format_name="plain")
+def test_generate_diff_simple(file1, file2, expected):
+    file_path_1 = get_fixture_path(file1, "simple")
+    file_path_2 = get_fixture_path(file2, "simple")
+    expected_result = read_file(get_fixture_path(expected, "simple"))
+    result = generate_diff(file_path_1, file_path_2, format_name="simple")
     assert result == expected_result
 
 
@@ -52,35 +52,35 @@ def test_generate_diff_plain(file1, file2, expected):
         # Если передали только 1 аргумент
         (
             TypeError,
-            get_fixture_path("plain_file_1.json", format_name="plain"),
+            get_fixture_path("simple_file_1.json", format_name="simple"),
         ),
         # Если передали несуществующую дирректорию для JSON
         (
             FileNotFoundError,
             [
-                get_fixture_path("plain_file_1.json", format_name="plain"),
-                get_fixture_path("plain_file.json", format_name="plain"),
+                get_fixture_path("simple_file_1.json", format_name="simple"),
+                get_fixture_path("simple_file.json", format_name="simple"),
             ],
         ),
         #
         (
             TypeError,
-            get_fixture_path("plain_file_1.yaml", format_name="plain"),
+            get_fixture_path("simple_file_1.yaml", format_name="simple"),
         ),
         # Если передали несуществующую дирректорию для YAML
         (
             FileNotFoundError,
             [
-                get_fixture_path("plain_file_1.yaml", format_name="plain"),
-                get_fixture_path("plain_file.yaml", format_name="plain"),
+                get_fixture_path("simple_file_1.yaml", format_name="simple"),
+                get_fixture_path("simple_file.yaml", format_name="simple"),
             ],
         ),
         # Если передали пустой YAML
         (
             AttributeError,
             [
-                get_fixture_path("file_empty.yaml", format_name="plain"),
-                get_fixture_path("plain_file_1.yaml", format_name="plain"),
+                get_fixture_path("file_empty.yaml", format_name="simple"),
+                get_fixture_path("simple_file_1.yaml", format_name="simple"),
             ],
         ),
     ],
