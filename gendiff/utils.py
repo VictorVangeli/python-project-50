@@ -41,7 +41,7 @@ def load_file_to_parse(file_path: str):
         dict: The parsed contents of the file as a dictionary.
     """
     current_dir = Path(__file__).parent
-    file_path = file_path
+    file_path = str(file_path)
     if file_path.endswith(".json"):
         with open(current_dir / file_path, "r") as file:
             return json.load(file)
