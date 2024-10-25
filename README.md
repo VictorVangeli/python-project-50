@@ -27,11 +27,14 @@
 - Автоматическое тестирование
 [![asciicast](https://asciinema.org/a/HBv6uJAelKtxIdZAu5EjFspbO.svg)](https://asciinema.org/a/HBv6uJAelKtxIdZAu5EjFspbO)
 
-- Интеграция YAML
+- Интеграция `YAML`
 [![asciicast](https://asciinema.org/a/toAi1EfZPPUOJVmP836rSShE5.svg)](https://asciinema.org/a/toAi1EfZPPUOJVmP836rSShE5)
 
-- Интеграция древовидного JSON
+- Интеграция древовидного `JSON`
 [![asciicast](https://asciinema.org/a/0RxcODhGVGbs3SCpoF7cmmVqY.svg)](https://asciinema.org/a/0RxcODhGVGbs3SCpoF7cmmVqY)
 
 - Интеграция форматера `Plain`
 [![asciicast](https://asciinema.org/a/nT4r4P5oBAvtUtyx7irUi1Ipe.svg)](https://asciinema.org/a/nT4r4P5oBAvtUtyx7irUi1Ipe)
+
+- Интеграция форматера `JSON`
+[![asciicast](https://asciinema.org/a/7qRMhjdyvGhBD4UsZB6CcpaWX.svg)](https://asciinema.org/a/7qRMhjdyvGhBD4UsZB6CcpaWX)
