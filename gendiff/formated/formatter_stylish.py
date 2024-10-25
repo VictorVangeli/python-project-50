@@ -210,6 +210,8 @@ def format_value(value: any, depth: int) -> str:
             return str(value).lower()
         case None:
             return "null"
+        case int():  # Обрабатываем числа
+            return str(value)
         case dict():
             return format_dict(value, depth)
         case _:
