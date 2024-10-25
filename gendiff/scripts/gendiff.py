@@ -18,7 +18,7 @@ def main():
         default="stylish",
         help=(
             "set format of output (default: stylish, "
-            "variables: plain, simple)"
+            "variables: plain, simple, json)"
         ),
     )
     args = parser.parse_args()
