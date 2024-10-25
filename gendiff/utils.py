@@ -1,6 +1,16 @@
 import json
-import yaml
 from pathlib import Path
+
+import yaml
+from gendiff.formated.formatter_plain import format_diff_plain
+from gendiff.formated.formatter_stylish import format_diff_stylish
+
+
+def get_formatter(format_name):
+    if format_name == "plain":
+        return format_diff_plain
+    elif format_name == "stylish":
+        return format_diff_stylish
 
 
 def load_file_to_parse(file_path):
@@ -24,24 +34,26 @@ def get_fixture_path(file_name, format_name: str):
     current_dir = Path(__file__).parent.parent
     file_name = file_name.lower()
 
-    if format_name in {"plain", "stylish"}:
-        if file_name.endswith(".json"):
-            # fmt: off
-            return (current_dir / "tests" / "fixtures"
-                    / format_name.capitalize() / "JSON" / file_name)
-            # fmt: on
-        elif file_name.endswith((".yaml", ".yml")):
-            # fmt: off
-            return (current_dir / "tests" / "fixtures"
-                    / format_name.capitalize() / "YAML" / file_name)
-            # fmt: on
-        elif file_name.startswith("expected_"):
-            # fmt: off
-            return (current_dir / "tests" / "fixtures"
-                    / format_name.capitalize() / "Expected" / file_name)
-            # fmt: on
-    elif format_name == "other":
-        if file_name.endswith(".txt"):
-            # fmt: off
-            return current_dir / "tests" / "fixtures" / file_name
-            # fmt: on
+    match format_name:
+        case "plain" | "stylish":
+            match file_name:
+                case name if name.endswith(".json"):
+                    # fmt: off
+                    return (current_dir / "tests" / "fixtures"
+                            / format_name.capitalize() / "JSON" / file_name)
+                    # fmt: on
+                case name if name.endswith((".yaml", ".yml")):
+                    # fmt: off
+                    return (current_dir / "tests" / "fixtures"
+                            / format_name.capitalize() / "YAML" / file_name)
+                    # fmt: on
+                case name if name.startswith("expected_"):
+                    # fmt: off
+                    return (current_dir / "tests" / "fixtures"
+                            / format_name.capitalize() / "Expected" / file_name)
+                    # fmt: on
+        case "other":
+            if file_name.endswith(".txt"):
+                # fmt: off
+                return current_dir / "tests" / "fixtures" / file_name
+                # fmt: on

@@ -1,6 +1,6 @@
 import subprocess
-import pytest
 
+import pytest
 from gendiff.utils import get_fixture_path, read_file
 
 

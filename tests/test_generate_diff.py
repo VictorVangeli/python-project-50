@@ -1,5 +1,5 @@
 import pytest
-from gendiff.generate_diff import generate_diff
+from gendiff.diff_builder.generate_diff import generate_diff
 from gendiff.utils import get_fixture_path, read_file
 
 
@@ -42,10 +42,9 @@ def test_generate_diff_plain(file1, file2, expected):
     file_path_1 = get_fixture_path(file1, "plain")
     file_path_2 = get_fixture_path(file2, "plain")
     expected_result = read_file(get_fixture_path(expected, "plain"))
-    result = generate_diff(
-        file_path_1, file_path_2, format_name="plain"
-    )
+    result = generate_diff(file_path_1, file_path_2, format_name="plain")
     assert result == expected_result
+
 
 @pytest.mark.parametrize(
     "expected_exception, args",
@@ -131,7 +130,5 @@ def test_generate_diff_stylish(file1, file2, expected):
     file_path_2 = get_fixture_path(file2, "stylish")
     expected_result = read_file(get_fixture_path(expected, "stylish"))
 
-    result = generate_diff(
-        file_path_1, file_path_2, format_name="stylish"
-    )
+    result = generate_diff(file_path_1, file_path_2, format_name="stylish")
     assert result == expected_result
