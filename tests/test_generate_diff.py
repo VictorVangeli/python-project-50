@@ -132,3 +132,47 @@ def test_generate_diff_stylish(file1, file2, expected):
 
     result = generate_diff(file_path_1, file_path_2, format_name="stylish")
     assert result == expected_result
+
+
+@pytest.mark.parametrize(
+    "file1, file2, expected",
+    [
+        # Проверка различий между двумя JSON файлами для plain
+        [
+            "plain_file_1.json",
+            "plain_file_2.json",
+            "expected_diff_main_plain.txt",
+        ],
+        # Проверка для одинаковых JSON файлов (plain)
+        [
+            "plain_file_1.json",
+            "plain_file_1.json",
+            "expected_diff_identical1_plain.txt",
+        ],
+        # Проверка для одинаковых JSON файлов (plain)
+        [
+            "plain_file_2.json",
+            "plain_file_2.json",
+            "expected_diff_identical2_plain.txt",
+        ],
+        # Проверка различий между пустым JSON файлом и полным (plain)
+        [
+            "file_empty.json",
+            "plain_file_1.json",
+            "expected_diff_empty_plain.txt",
+        ],
+        # Проверка различий между двумя YAML файлами для plain
+        [
+            "plain_file_1.yaml",
+            "plain_file_2.yaml",
+            "expected_diff_main_plain.txt",
+        ],
+    ],
+)
+def test_generate_diff_plain(file1, file2, expected):
+    file_path_1 = get_fixture_path(file1, "plain")
+    file_path_2 = get_fixture_path(file2, "plain")
+    expected_result = read_file(get_fixture_path(expected, "plain"))
+
+    result = generate_diff(file_path_1, file_path_2, format_name="plain")
+    assert result == expected_result

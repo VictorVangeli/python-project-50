@@ -32,3 +32,6 @@
 
 - Интеграция древовидного JSON
 [![asciicast](https://asciinema.org/a/0RxcODhGVGbs3SCpoF7cmmVqY.svg)](https://asciinema.org/a/0RxcODhGVGbs3SCpoF7cmmVqY)
+
+- Интеграция форматера `Plain`
+[![asciicast](https://asciinema.org/a/nT4r4P5oBAvtUtyx7irUi1Ipe.svg)](https://asciinema.org/a/nT4r4P5oBAvtUtyx7irUi1Ipe)
