@@ -26,3 +26,6 @@
 
 - Автоматическое тестирование
 [![asciicast](https://asciinema.org/a/HBv6uJAelKtxIdZAu5EjFspbO.svg)](https://asciinema.org/a/HBv6uJAelKtxIdZAu5EjFspbO)
+
+- Интеграция YAML
+[![asciicast](https://asciinema.org/a/toAi1EfZPPUOJVmP836rSShE5.svg)](https://asciinema.org/a/toAi1EfZPPUOJVmP836rSShE5)
