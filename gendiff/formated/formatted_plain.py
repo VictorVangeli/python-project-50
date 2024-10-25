@@ -22,6 +22,8 @@ def format_value(value: object) -> str:
         return str(value).lower()
     elif value is None:
         return "null"
+    elif isinstance(value, (int, float)):
+        return str(value)
     return f"'{value}'"
 
 
