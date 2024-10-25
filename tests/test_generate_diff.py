@@ -1,3 +1,5 @@
+from typing import Type
+
 import pytest
 from gendiff.diff_builder.generate_diff import generate_diff
 from gendiff.utils import get_fixture_path, read_file
@@ -38,7 +40,15 @@ from gendiff.utils import get_fixture_path, read_file
         ],
     ],
 )
-def test_generate_diff_simple(file1, file2, expected):
+def test_generate_diff_simple(file1: str, file2: str, expected: str) -> None:
+    """
+    Test gendiff output in simple format for different file pairs.
+
+    Args:
+        file1 (str): Path to the first file.
+        file2 (str): Path to the second file.
+        expected (str): Path to the expected output file.
+    """
     file_path_1 = get_fixture_path(file1, "simple")
     file_path_2 = get_fixture_path(file2, "simple")
     expected_result = read_file(get_fixture_path(expected, "simple"))
@@ -85,7 +95,17 @@ def test_generate_diff_simple(file1, file2, expected):
         ),
     ],
 )
-def test_generate_diff_error(expected_exception, args):
+def test_generate_diff_error(expected_exception, args: list[str]) -> None:
+    """
+    Test error cases when invalid file paths or arguments are provided.
+
+    Args:
+        expected_exception: The expected exception.
+        args (list): List of arguments to pass to generate_diff.
+
+    Raises:
+        pytest.raises: Confirms that the expected exception is raised.
+    """
     with pytest.raises(expected_exception):
         generate_diff(*args)
 
@@ -125,7 +145,15 @@ def test_generate_diff_error(expected_exception, args):
         ],
     ],
 )
-def test_generate_diff_stylish(file1, file2, expected):
+def test_generate_diff_stylish(file1: str, file2: str, expected: str) -> None:
+    """
+    Test gendiff output in stylish format for different file pairs.
+
+    Args:
+        file1 (str): Path to the first file.
+        file2 (str): Path to the second file.
+        expected (str): Path to the expected output file.
+    """
     file_path_1 = get_fixture_path(file1, "stylish")
     file_path_2 = get_fixture_path(file2, "stylish")
     expected_result = read_file(get_fixture_path(expected, "stylish"))
@@ -169,7 +197,15 @@ def test_generate_diff_stylish(file1, file2, expected):
         ],
     ],
 )
-def test_generate_diff_plain(file1, file2, expected):
+def test_generate_diff_plain(file1: str, file2: str, expected: str) -> None:
+    """
+    Test gendiff output in plain format for different file pairs.
+
+    Args:
+        file1 (str): Path to the first file.
+        file2 (str): Path to the second file.
+        expected (str): Path to the expected output file.
+    """
     file_path_1 = get_fixture_path(file1, "plain")
     file_path_2 = get_fixture_path(file2, "plain")
     expected_result = read_file(get_fixture_path(expected, "plain"))
@@ -213,7 +249,15 @@ def test_generate_diff_plain(file1, file2, expected):
         ],
     ],
 )
-def test_generate_diff_json(file1, file2, expected):
+def test_generate_diff_json(file1: str, file2: str, expected: str) -> None:
+    """
+    Test gendiff output in JSON format for different file pairs.
+
+    Args:
+        file1 (str): Path to the first file.
+        file2 (str): Path to the second file.
+        expected (str): Path to the expected output file.
+    """
     file_path_1 = get_fixture_path(file1, "json")
     file_path_2 = get_fixture_path(file2, "json")
     expected_result = read_file(get_fixture_path(expected, "json"))

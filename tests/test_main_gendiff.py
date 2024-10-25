@@ -4,7 +4,16 @@ import pytest
 from gendiff.utils import get_fixture_path, read_file
 
 
-def test_main_gendiff_help():
+def test_main_gendiff_help() -> None:
+    """
+    Test the output of the 'gendiff' help command.
+
+    Reads the expected result from a fixture file and compares it with the
+    actual output of the 'gendiff -h' command.
+
+    Raises:
+        AssertionError: If the actual output does not match the expected result.
+    """
     expected_result = read_file(
         get_fixture_path("expected_main_gendiff_help.txt", "other")
     )
@@ -46,7 +55,21 @@ def test_main_gendiff_help():
         ),
     ],
 )
-def test_main_gendiff_formats(file1, file2, format_name, expected_output):
+def test_main_gendiff_formats(
+    file1: str, file2: str, format_name: str, expected_output: str
+) -> None:
+    """
+    Test the 'gendiff' command with different file formats.
+
+    Parameters:
+        file1 (str): The first file path.
+        file2 (str): The second file path.
+        format_name (str): The format to be used for the diff output.
+        expected_output (str): The expected output result.
+
+    Raises:
+        AssertionError: If the actual output does not match the expected result.
+    """
     file_path_1 = get_fixture_path(file1, format_name)
     file_path_2 = get_fixture_path(file2, format_name)
     expected_result = read_file(get_fixture_path(expected_output, format_name))
@@ -56,8 +79,8 @@ def test_main_gendiff_formats(file1, file2, format_name, expected_output):
             "poetry",
             "run",
             "gendiff",
-            file_path_1,
-            file_path_2,
+            str(file_path_1),
+            str(file_path_2),
             "-f",
             format_name,
         ],

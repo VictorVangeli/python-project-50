@@ -8,7 +8,16 @@ from gendiff.formated.formatter_simple import format_diff_simple
 from gendiff.formated.formatter_stylish import format_diff_stylish
 
 
-def get_formatter(format_name):
+def get_formatter(format_name: str):
+    """
+    Returns the appropriate formatter function based on the format_name.
+
+    Args:
+        format_name (str): The name of the output format (e.g., stylish, plain).
+
+    Returns:
+        Callable: The formatting function corresponding to the format_name.
+    """
     match format_name:
         case "simple":
             return format_diff_simple
@@ -20,9 +29,19 @@ def get_formatter(format_name):
             return format_diff_json
 
 
-def load_file_to_parse(file_path):
+def load_file_to_parse(file_path: str):
+    """
+    Loads and parses the contents of a file based on its extension
+    (JSON or YAML).
+
+    Args:
+        file_path (str): The path to the file to be loaded.
+
+    Returns:
+        dict: The parsed contents of the file as a dictionary.
+    """
     current_dir = Path(__file__).parent
-    file_path = str(file_path)
+    file_path = file_path
     if file_path.endswith(".json"):
         with open(current_dir / file_path, "r") as file:
             return json.load(file)
@@ -31,13 +50,32 @@ def load_file_to_parse(file_path):
             return yaml.safe_load(file)
 
 
-def read_file(file_path):
+def read_file(file_path: str) -> str:
+    """
+    Reads the contents of a file.
+
+    Args:
+        file_path (Path): The path to the file to read.
+
+    Returns:
+        str: The contents of the file as a string.
+    """
     with open(file_path, "r") as f:
         result = f.read()
     return result
 
 
-def get_fixture_path(file_name, format_name: str):
+def get_fixture_path(file_name: str, format_name: str) -> str:
+    """
+    Constructs the path to a test fixture based on the file name and format.
+
+    Args:
+        file_name (str): The name of the fixture file (e.g., expected_diff.txt).
+        format_name (str): The format name (e.g., stylish, plain).
+
+    Returns:
+        Path: The constructed path to the fixture file.
+    """
     current_dir = Path(__file__).parent.parent
     file_name = file_name.lower()
 

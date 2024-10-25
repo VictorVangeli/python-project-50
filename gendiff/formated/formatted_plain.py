@@ -6,8 +6,16 @@ TEMPLATE_CHANGED = (
 TEMPLATE_COMPLEX_VALUE = "[complex value]"
 
 
-def format_value(value):
-    """Форматируем значение для plain-формата."""
+def format_value(value: object) -> str:
+    """
+    Formats a value for plain format output.
+
+    Args:
+        value: The value to format.
+
+    Returns:
+        str: A string representation of the value.
+    """
     if isinstance(value, dict):
         return TEMPLATE_COMPLEX_VALUE
     elif isinstance(value, bool):
@@ -17,8 +25,18 @@ def format_value(value):
     return f"'{value}'"
 
 
-def flatten_diff(diff, parent=""):
-    """Рекурсивно преобразуем diff в плоский формат с полными путями."""
+def flatten_diff(diff: list[dict], parent: str = "") -> list[str]:
+    """
+    Recursively flattens the diff structure into plain format with full paths.
+
+    Args:
+        diff (list[dict]): The structured diff data.
+        parent (str, optional): The parent path for nested values.
+                                Defaults to an empty string.
+
+    Returns:
+        list[str]: A list of formatted strings representing the diff.
+    """
     flat_diff = []
 
     for node in diff:
@@ -55,7 +73,15 @@ def flatten_diff(diff, parent=""):
     return flat_diff
 
 
-def format_diff_plain(diff):
-    """Форматируем плоскую структуру diff."""
+def format_diff_plain(diff: list[dict]) -> str:
+    """
+    Formats the diff into plain text format.
+
+    Args:
+        diff (list[dict]): The structured diff data.
+
+    Returns:
+        str: A formatted plain-text representation of the diff.
+    """
     flat_diff = flatten_diff(diff)
     return "\n".join(flat_diff)
