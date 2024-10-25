@@ -30,12 +30,23 @@ from gendiff.utils import get_fixture_path, read_file
             "plain_file_1.json",
             "expected_diff_empty.txt",
         ],
+        # Проверка различий между двумя YAML файлами (основная задача)
+
+        [
+            "plain_file_1.yaml",
+            "plain_file_2.yaml",
+            "expected_diff_main_plain.txt",
+        ],
     ],
 )
 def test_generate_diff_plain(file1, file2, expected):
     file_path_1 = get_fixture_path(file1)
     file_path_2 = get_fixture_path(file2)
     expected_result = read_file(get_fixture_path(expected))
+    print(
+        generate_diff(file_path_1, file_path_2).strip()
+        == expected_result.strip()
+    )
     assert (
         generate_diff(file_path_1, file_path_2).strip()
         == expected_result.strip()
@@ -51,6 +62,21 @@ def test_generate_diff_plain(file1, file2, expected):
             [
                 get_fixture_path("plain_file_1.json"),
                 get_fixture_path("plain_file.json"),
+            ],
+        ),
+        (TypeError, get_fixture_path("plain_file_1.yaml")),
+        (
+            FileNotFoundError,
+            [
+                get_fixture_path("plain_file_1.yaml"),
+                get_fixture_path("plain_file.yaml"),
+            ],
+        ),
+        (
+            AttributeError,
+            [
+                get_fixture_path("file_empty.yaml"),
+                get_fixture_path("plain_file_1.yaml"),
             ],
         ),
     ],

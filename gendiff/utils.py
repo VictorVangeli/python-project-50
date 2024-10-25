@@ -1,11 +1,17 @@
 import json
+import yaml
 from pathlib import Path
 
 
-def load_json(file_path):
+def load_file_to_parse(file_path):
     current_dir = Path(__file__).parent
-    with open(current_dir / file_path, "r") as file:
-        return json.load(file)
+    file_path = str(file_path)
+    if file_path.endswith('.json'):
+        with open(current_dir / file_path, "r") as file:
+            return json.load(file)
+    elif file_path.endswith(('.yaml', '.yml')):
+        with open(current_dir / file_path, "r") as file:
+            return yaml.safe_load(file)
 
 
 def read_file(file_path):
