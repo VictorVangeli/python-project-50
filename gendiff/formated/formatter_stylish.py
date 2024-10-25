@@ -104,7 +104,7 @@ def format_dict(value: dict, depth: int) -> str:
     child_indent = " " * ((depth + 1) * indent_size)
 
     for key, val in value.items():
-        formatted_val = format_value(val, depth + 1)
+        formatted_val = format_value_stylish(val, depth + 1)
         lines.append(f"{child_indent}{key}: {formatted_val}")
 
     closing_bracket_indent = current_indent
@@ -160,7 +160,7 @@ def format_diff_stylish(diff: list, depth: int = 1) -> str:
                 result.append(
                     format_added(
                         key,
-                        format_value(node["new_value"], depth),
+                        format_value_stylish(node["new_value"], depth),
                         current_indent,
                     )
                 )
@@ -168,21 +168,21 @@ def format_diff_stylish(diff: list, depth: int = 1) -> str:
                 result.append(
                     format_removed(
                         key,
-                        format_value(node["old_value"], depth),
+                        format_value_stylish(node["old_value"], depth),
                         current_indent,
                     )
                 )
             case "changed":
-                old_value, new_value = format_value(
+                old_value, new_value = format_value_stylish(
                     node["old_value"], depth
-                ), format_value(node["new_value"], depth)
+                ), format_value_stylish(node["new_value"], depth)
                 result.extend(
                     format_changed(key, old_value, new_value, current_indent)
                 )
             case "unchanged":
                 result.append(
                     format_unchanged(
-                        key, format_value(node["value"], depth), current_indent
+                        key, format_value_stylish(node["value"], depth), current_indent
                     )
                 )
             case "nested":
@@ -194,7 +194,7 @@ def format_diff_stylish(diff: list, depth: int = 1) -> str:
     return "\n".join(result)
 
 
-def format_value(value: any, depth: int) -> str:
+def format_value_stylish(value: any, depth: int) -> str:
     """
     Formats a value for the 'stylish' format.
 

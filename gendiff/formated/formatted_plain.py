@@ -6,7 +6,7 @@ TEMPLATE_CHANGED = (
 TEMPLATE_COMPLEX_VALUE = "[complex value]"
 
 
-def format_value(value: object) -> str:
+def format_value_plain(value: object) -> str:
     """
     Formats a value for plain format output.
 
@@ -53,14 +53,14 @@ def flatten_diff(diff: list[dict], parent: str = "") -> list[str]:
                 flat_diff.append(
                     TEMPLATE_ADDED.format(
                         path=full_path,
-                        new_value=format_value(node["new_value"]),
+                        new_value=format_value_plain(node["new_value"]),
                     )
                 )
             case "removed":
                 flat_diff.append(TEMPLATE_DELETED.format(path=full_path))
             case "changed":
-                old_value = format_value(node["old_value"])
-                new_value = format_value(node["new_value"])
+                old_value = format_value_plain(node["old_value"])
+                new_value = format_value_plain(node["new_value"])
                 flat_diff.append(
                     TEMPLATE_CHANGED.format(
                         path=full_path,
