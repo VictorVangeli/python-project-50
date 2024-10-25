@@ -29,3 +29,6 @@
 
 - Интеграция YAML
 [![asciicast](https://asciinema.org/a/toAi1EfZPPUOJVmP836rSShE5.svg)](https://asciinema.org/a/toAi1EfZPPUOJVmP836rSShE5)
+
+- Интеграция древовидного JSON
+[![asciicast](https://asciinema.org/a/0RxcODhGVGbs3SCpoF7cmmVqY.svg)](https://asciinema.org/a/0RxcODhGVGbs3SCpoF7cmmVqY)
