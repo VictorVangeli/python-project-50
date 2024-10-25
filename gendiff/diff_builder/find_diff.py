@@ -39,23 +39,36 @@ def nested_diff(key, value_1, value_2):
     }
 
 
+def process_key(diff_tuple):
+    key, old_value, new_value, text_first_file, text_second_file = diff_tuple
+
+    if key not in text_second_file:
+        return removed_diff(key, old_value)
+    elif key not in text_first_file:
+        return added_diff(key, new_value)
+    elif isinstance(old_value, dict) and isinstance(new_value, dict):
+        return nested_diff(key, old_value, new_value)
+    elif old_value != new_value:
+        return changed_diff(key, old_value, new_value)
+    else:
+        return unchanged_diff(key, old_value)
+
+
+def process_diff(all_keys, text_first_file, text_second_file):
+    diff_data = [
+        (
+            key,
+            text_first_file.get(key),
+            text_second_file.get(key),
+            text_first_file,
+            text_second_file,
+        )
+        for key in all_keys
+    ]
+
+    return list(map(process_key, diff_data))
+
+
 def find_diff(text_first_file, text_second_file):
-    diff = []
     all_keys = sorted(text_first_file.keys() | text_second_file.keys())
-
-    for key in all_keys:
-        old_value = text_first_file.get(key)
-        new_value = text_second_file.get(key)
-
-        if key not in text_second_file:
-            diff.append(removed_diff(key, old_value))
-        elif key not in text_first_file:
-            diff.append(added_diff(key, new_value))
-        elif isinstance(old_value, dict) and isinstance(new_value, dict):
-            diff.append(nested_diff(key, old_value, new_value))
-        elif old_value != new_value:
-            diff.append(changed_diff(key, old_value, new_value))
-        else:
-            diff.append(unchanged_diff(key, old_value))
-
-    return diff
+    return process_diff(all_keys, text_first_file, text_second_file)
