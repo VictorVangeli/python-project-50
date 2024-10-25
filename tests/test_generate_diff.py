@@ -1,5 +1,3 @@
-from typing import Type
-
 import pytest
 from gendiff.diff_builder.generate_diff import generate_diff
 from gendiff.utils import get_fixture_path, read_file
