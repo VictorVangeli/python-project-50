@@ -213,7 +213,7 @@ def test_generate_diff_plain(file1, file2, expected):
         ],
     ],
 )
-def test_generate_diff_plain(file1, file2, expected):
+def test_generate_diff_json(file1, file2, expected):
     file_path_1 = get_fixture_path(file1, "json")
     file_path_2 = get_fixture_path(file2, "json")
     expected_result = read_file(get_fixture_path(expected, "json"))
