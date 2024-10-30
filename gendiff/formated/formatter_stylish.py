@@ -99,9 +99,8 @@ def format_dict(value: dict, depth: int) -> str:
         str: Formatted string representation of the dictionary.
     """
     lines = []
-    indent_size = 4
-    current_indent = " " * (depth * indent_size)
-    child_indent = " " * ((depth + 1) * indent_size)
+    current_indent = " " * (depth * INDENT_SIZE)
+    child_indent = " " * ((depth + 1) * INDENT_SIZE)
 
     for key, val in value.items():
         formatted_val = format_value_stylish(val, depth + 1)
