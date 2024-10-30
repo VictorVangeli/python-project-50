@@ -1,4 +1,4 @@
-from typing import Dict, List, Any
+from typing import Any, Dict, List
 
 
 def format_diff_simple(diff: List[Dict[str, Any]]) -> str:

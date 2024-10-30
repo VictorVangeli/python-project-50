@@ -182,7 +182,9 @@ def format_diff_stylish(diff: list, depth: int = 1) -> str:
             case "unchanged":
                 result.append(
                     format_unchanged(
-                        key, format_value_stylish(node["value"], depth), current_indent
+                        key,
+                        format_value_stylish(node["value"], depth),
+                        current_indent,
                     )
                 )
             case "nested":

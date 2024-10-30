@@ -1,7 +1,5 @@
 import argparse
 
-from gendiff import generate_diff
-
 
 def get_args():
     """
@@ -12,11 +10,12 @@ def get_args():
         args.second_file: str
         args.format: str
     """
-    parser = argparse.ArgumentParser(prog='gendiff',
-                                     description="Compares two configuration "
-                                                 "files and "
-                                                 "shows a difference."
-                                     )
+    parser = argparse.ArgumentParser(
+        prog="gendiff",
+        description="Compares two configuration "
+        "files and "
+        "shows a difference.",
+    )
     parser.add_argument("first_file", type=str)
     parser.add_argument("second_file", type=str)
     parser.add_argument(
