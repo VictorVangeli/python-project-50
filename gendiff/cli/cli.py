@@ -3,7 +3,7 @@ import argparse
 from gendiff import generate_diff
 
 
-def parse_arguments():
+def get_args():
     """
     Parse arguments for gendiff.
 
@@ -12,10 +12,11 @@ def parse_arguments():
         args.second_file: str
         args.format: str
     """
-    parser = argparse.ArgumentParser(
-        description="Compares two configuration files and "
-        "shows a difference."
-    )
+    parser = argparse.ArgumentParser(prog='gendiff',
+                                     description="Compares two configuration "
+                                                 "files and "
+                                                 "shows a difference."
+                                     )
     parser.add_argument("first_file", type=str)
     parser.add_argument("second_file", type=str)
     parser.add_argument(
@@ -27,5 +28,4 @@ def parse_arguments():
             "variables: plain, simple, json)"
         ),
     )
-    args = parser.parse_args()
-    print(generate_diff(args.first_file, args.second_file, args.format))
+    return parser.parse_args()
