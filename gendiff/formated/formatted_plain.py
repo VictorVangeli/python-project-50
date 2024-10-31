@@ -46,7 +46,7 @@ def flatten_diff(diff: list[dict], parent: str = "") -> list[str]:
         type_ = node["type"]
         full_path = (
             f"{parent}.{key}" if parent else key
-        )  # Формируем полный путь
+        )
 
         match type_:
             case "added":
@@ -69,7 +69,6 @@ def flatten_diff(diff: list[dict], parent: str = "") -> list[str]:
                     )
                 )
             case "nested":
-                # Если это вложенная структура, вызываем flatten_diff рекурсивно
                 flat_diff.extend(flatten_diff(node["children"], full_path))
 
     return flat_diff

@@ -211,7 +211,7 @@ def format_value_stylish(value: any, depth: int) -> str:
             return str(value).lower()
         case None:
             return "null"
-        case int():  # Обрабатываем числа
+        case int():
             return str(value)
         case dict():
             return format_dict(value, depth)
