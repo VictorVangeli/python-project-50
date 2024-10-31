@@ -1,9 +1,9 @@
-TEMPLATE_ADDED = "Property '{path}' was added with value: {new_value}"
-TEMPLATE_DELETED = "Property '{path}' was removed"
-TEMPLATE_CHANGED = (
-    "Property '{path}' was updated. From {old_value} to {new_value}"
+from gendiff.const import (
+    TEMPLATE_ADDED,
+    TEMPLATE_CHANGED,
+    TEMPLATE_COMPLEX_VALUE,
+    TEMPLATE_DELETED,
 )
-TEMPLATE_COMPLEX_VALUE = "[complex value]"
 
 
 def format_value_plain(value: object) -> str:
@@ -44,9 +44,7 @@ def flatten_diff(diff: list[dict], parent: str = "") -> list[str]:
     for node in diff:
         key = node["key"]
         type_ = node["type"]
-        full_path = (
-            f"{parent}.{key}" if parent else key
-        )
+        full_path = f"{parent}.{key}" if parent else key
 
         match type_:
             case "added":

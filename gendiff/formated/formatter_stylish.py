@@ -1,7 +1,4 @@
-ADD = "+ "
-DELETE = "- "
-REPLACER = " "
-INDENT_SIZE = 4
+from gendiff.const import INDENT_SIZE
 
 
 def format_added(key: str, value: str, indent: str) -> str:
