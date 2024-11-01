@@ -44,7 +44,8 @@ def formatters_plain(parent: str = "") -> dict:
     Returns:
         dict: Dictionary of formatter functions for each diff type.
     """
-    return {
+
+    templates = {
         "added": lambda node: TEMPLATE_ADDED.format(
             path=f"{parent}.{node['key']}" if parent else node["key"],
             new_value=format_value_plain(node["new_value"]),
@@ -63,6 +64,8 @@ def formatters_plain(parent: str = "") -> dict:
         ),
         "unchanged": lambda node: "",
     }
+
+    return templates
 
 
 def format_value_plain(value: object) -> str:
