@@ -18,15 +18,13 @@ def get_formatter(format_name: str):
     Returns:
         Callable: The formatting function corresponding to the format_name.
     """
-    match format_name:
-        case "simple":
-            return format_diff_simple
-        case "stylish":
-            return format_diff_stylish
-        case "plain":
-            return format_diff_plain
-        case "json":
-            return format_diff_json
+    format_name_dict = {
+        "simple": format_diff_simple,
+        "stylish": format_diff_stylish,
+        "plain": format_diff_plain,
+        "json": format_diff_json,
+    }
+    return format_name_dict.get(format_name)
 
 
 def load_file_to_parse(file_path: str):
