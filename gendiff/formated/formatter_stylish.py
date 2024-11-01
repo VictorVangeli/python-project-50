@@ -1,70 +1,41 @@
+from typing import Any, Callable, Dict
+
 from gendiff.const import INDENT_SIZE
+from gendiff.formated.formatted_methods import (
+    format_added,
+    format_changed,
+    format_removed,
+    format_unchanged,
+)
 
 
-def format_added(key: str, value: str, indent: str) -> str:
+def format_diff_stylish(diff: list, depth: int = 1) -> str:
     """
-    Formats a string for an added element.
+    Formats a diff in the 'stylish' format.
 
     Args:
-        key (str): The element's key.
-        value (str): The element's value.
-        indent (str): Current indentation level.
+        diff (list): The diff structure to be formatted.
+        depth (int): Current nesting depth.
 
     Returns:
-        str: Formatted string representing the added element.
+        str: Formatted diff string in the 'stylish' format.
     """
-    return f"{indent}+ {key}: {value}"
+    current_indent = " " * (depth * INDENT_SIZE - 2)
+    result = ["{"]
 
+    formatter_functions = formatters_stylish(current_indent, depth)
 
-def format_removed(key: str, value: str, indent: str) -> str:
-    """
-    Formats a string for a removed element.
+    for node in diff:
+        type_ = node["type"]
+        if type_ in formatter_functions:
+            formatted_text = formatter_functions[type_](node)
+            if isinstance(formatted_text, list):
+                result.extend(formatted_text)
+            else:
+                result.append(formatted_text)
 
-    Args:
-        key (str): The element's key.
-        value (str): The element's value.
-        indent (str): Current indentation level.
-
-    Returns:
-        str: Formatted string representing the removed element.
-    """
-    return f"{indent}- {key}: {value}"
-
-
-def format_changed(
-    key: str, old_value: str, new_value: str, indent: str
-) -> list:
-    """
-    Formats strings for a changed element.
-
-    Args:
-        key (str): The element's key.
-        old_value (str): The element's old value.
-        new_value (str): The element's new value.
-        indent (str): Current indentation level.
-
-    Returns:
-        list: List of formatted strings for the changed element.
-    """
-    return [
-        f"{indent}- {key}: {old_value}",
-        f"{indent}+ {key}: {new_value}",
-    ]
-
-
-def format_unchanged(key: str, value: str, indent: str) -> str:
-    """
-    Formats a string for an unchanged element.
-
-    Args:
-        key (str): The element's key.
-        value (str): The element's value.
-        indent (str): Current indentation level.
-
-    Returns:
-        str: Formatted string representing the unchanged element.
-    """
-    return f"{indent}  {key}: {value}"
+    result.append(f"{' ' * ((depth - 1) * INDENT_SIZE)}}}")
+    return "\n".join(result)
 
 
 def format_nested(key: str, children: list, indent: str, depth: int) -> str:
@@ -84,112 +55,46 @@ def format_nested(key: str, children: list, indent: str, depth: int) -> str:
     return f"{indent}  {key}: {nested_diff}"
 
 
-def format_dict(value: dict, depth: int) -> str:
+def formatters_stylish(
+    current_indent: str, depth: int
+) -> Dict[str, Callable[[Dict[str, Any]], str]]:
     """
-    Formats a dictionary as a string for the 'stylish' format.
+    Returns a dictionary with formatting functions for each type of diff change.
 
     Args:
-        value (dict): Dictionary to be formatted.
-        depth (int): Current nesting depth.
+        current_indent (str): The current indentation level.
+        depth (int): The current depth for nested structures.
 
     Returns:
-        str: Formatted string representation of the dictionary.
+        Dict[str, Callable[[Dict[str, Any]], str]]: Dictionary of format
+        functions.
     """
-    lines = []
-    current_indent = " " * (depth * INDENT_SIZE)
-    child_indent = " " * ((depth + 1) * INDENT_SIZE)
-
-    for key, val in value.items():
-        formatted_val = format_value_stylish(val, depth + 1)
-        lines.append(f"{child_indent}{key}: {formatted_val}")
-
-    closing_bracket_indent = current_indent
-    return "{\n" + "\n".join(lines) + f"\n{closing_bracket_indent}}}"  # noqa
-
-
-def get_indent(depth: int) -> str:
-    """
-    Returns the current indentation based on the nesting depth.
-
-    Args:
-        depth (int): Current nesting depth.
-
-    Returns:
-        str: Indentation string.
-    """
-    return " " * (depth * INDENT_SIZE)
-
-
-def get_closing_bracket_indent(depth: int) -> str:
-    """
-    Returns the indentation for the closing bracket based on nesting depth.
-
-    Args:
-        depth (int): Current nesting depth.
-
-    Returns:
-        str: Indentation string for the closing bracket.
-    """
-    return " " * ((depth - 1) * INDENT_SIZE)
-
-
-def format_diff_stylish(diff: list, depth: int = 1) -> str:
-    """
-    Formats a diff in the 'stylish' format.
-
-    Args:
-        diff (list): The diff structure to be formatted.
-        depth (int): Current nesting depth.
-
-    Returns:
-        str: Formatted diff string in the 'stylish' format.
-    """
-    current_indent = " " * (depth * INDENT_SIZE - 2)
-    result = ["{"]
-
-    for node in diff:
-        key = node["key"]
-        type_ = node["type"]
-
-        match type_:
-            case "added":
-                result.append(
-                    format_added(
-                        key,
-                        format_value_stylish(node["new_value"], depth),
-                        current_indent,
-                    )
-                )
-            case "removed":
-                result.append(
-                    format_removed(
-                        key,
-                        format_value_stylish(node["old_value"], depth),
-                        current_indent,
-                    )
-                )
-            case "changed":
-                old_value, new_value = format_value_stylish(
-                    node["old_value"], depth
-                ), format_value_stylish(node["new_value"], depth)
-                result.extend(
-                    format_changed(key, old_value, new_value, current_indent)
-                )
-            case "unchanged":
-                result.append(
-                    format_unchanged(
-                        key,
-                        format_value_stylish(node["value"], depth),
-                        current_indent,
-                    )
-                )
-            case "nested":
-                result.append(
-                    format_nested(key, node["children"], current_indent, depth)
-                )
-
-    result.append(f"{' ' * ((depth - 1) * INDENT_SIZE)}}}")
-    return "\n".join(result)
+    return {
+        "added": lambda node: format_added(
+            node["key"],
+            format_value_stylish(node["new_value"], depth),
+            current_indent,
+        ),
+        "removed": lambda node: format_removed(
+            node["key"],
+            format_value_stylish(node["old_value"], depth),
+            current_indent,
+        ),
+        "changed": lambda node: format_changed(
+            node["key"],
+            format_value_stylish(node["old_value"], depth),
+            format_value_stylish(node["new_value"], depth),
+            current_indent,
+        ),
+        "unchanged": lambda node: format_unchanged(
+            node["key"],
+            format_value_stylish(node["value"], depth),
+            current_indent,
+        ),
+        "nested": lambda node: format_nested(
+            node["key"], node["children"], current_indent, depth
+        ),
+    }
 
 
 def format_value_stylish(value: any, depth: int) -> str:
@@ -214,3 +119,26 @@ def format_value_stylish(value: any, depth: int) -> str:
             return format_dict(value, depth)
         case _:
             return str(value)
+
+
+def format_dict(value: dict, depth: int) -> str:
+    """
+    Formats a dictionary as a string for the 'stylish' format.
+
+    Args:
+        value (dict): Dictionary to be formatted.
+        depth (int): Current nesting depth.
+
+    Returns:
+        str: Formatted string representation of the dictionary.
+    """
+    lines = []
+    current_indent = " " * (depth * INDENT_SIZE)
+    child_indent = " " * ((depth + 1) * INDENT_SIZE)
+
+    for key, val in value.items():
+        formatted_val = format_value_stylish(val, depth + 1)
+        lines.append(f"{child_indent}{key}: {formatted_val}")
+
+    closing_bracket_indent = current_indent
+    return "{\n" + "\n".join(lines) + f"\n{closing_bracket_indent}}}"  # noqa
