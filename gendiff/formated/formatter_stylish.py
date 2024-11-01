@@ -69,7 +69,7 @@ def formatters_stylish(
         Dict[str, Callable[[Dict[str, Any]], str]]: Dictionary of format
         functions.
     """
-    return {
+    templates = {
         "added": lambda node: format_added(
             node["key"],
             format_value_stylish(node["new_value"], depth),
@@ -95,6 +95,7 @@ def formatters_stylish(
             node["key"], node["children"], current_indent, depth
         ),
     }
+    return templates
 
 
 def format_value_stylish(value: any, depth: int) -> str:
