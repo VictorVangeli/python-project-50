@@ -14,3 +14,8 @@ ADD = "+ "
 DELETE = "- "
 REPLACER = " "
 INDENT_SIZE = 4
+
+INDENT_DICT = {
+    "indent_size_for_simple": "",
+    "indent_size_for_stylish": 4,
+}
